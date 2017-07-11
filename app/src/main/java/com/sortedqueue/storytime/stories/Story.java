@@ -16,6 +16,7 @@ public class Story implements Parcelable {
     private String storyType;
     private String storyImage;
     private static ArrayList<Story> storyList;
+    private ArrayList<SubStories> subStories;
 
     public Story() {
     }
@@ -41,6 +42,34 @@ public class Story implements Parcelable {
                 "Animal Stories",
                 "Mythology",
                 "http://cdn2.momjunction.com/wp-content/uploads/2014/06/Animal-Stories-For-Your-Kids.jpg"));
+
+        ArrayList<SubStories> subStories = new ArrayList<>();
+
+        subStories.add(new SubStories("A friend in need is a friend indeed.", ""));
+        subStories.add(new SubStories("A Town Mouse and A Country Mouse", ""));
+        subStories.add(new SubStories("Elephant and Friends", ""));
+        subStories.add(new SubStories("Four Friends", ""));
+        subStories.add(new SubStories("Hungry Wolf", ""));
+        subStories.add(new SubStories("The Clever Crab", ""));
+        subStories.add(new SubStories("The Clever Frog", ""));
+        subStories.add(new SubStories("The Crane and The Snake", ""));
+        subStories.add(new SubStories("The Crow and The Eagle", ""));
+        subStories.add(new SubStories("The Crow and The Necklace", ""));
+        subStories.add(new SubStories("The Donkey and The Load of Salt", ""));
+        subStories.add(new SubStories("The Donkey Who Would Sing", ""));
+        subStories.add(new SubStories("The Faithful Mongoose", ""));
+        subStories.add(new SubStories("The Foolish Crow", ""));
+        subStories.add(new SubStories("The Frog and The Ox", ""));
+        subStories.add(new SubStories("The Indigo Jackal", ""));
+        subStories.add(new SubStories("The Jackal and The War Drum", ""));
+        subStories.add(new SubStories("The Lion and The Hare", ""));
+        subStories.add(new SubStories("The Lazy Dreamer", ""));
+        subStories.add(new SubStories("The Merchant and The Foolish Barber", ""));
+        subStories.add(new SubStories("The Foolish Lion", ""));
+        storyList.get(storyList.size() - 1).setSubStories(subStories);
+
+
+
         storyList.add(new Story(
                 "story_"+id++,
                 "Witty Tales",
@@ -76,6 +105,9 @@ public class Story implements Parcelable {
                 "Aesop's Fables",
                 "Mythology",
                 "http://www.kids-pages.com/folders/stories/Aesops_Fables/crowandfox.jpg"));
+
+
+
         return storyList;
     }
 
@@ -111,6 +143,13 @@ public class Story implements Parcelable {
         this.storyImage = storyImage;
     }
 
+    public ArrayList<SubStories> getSubStories() {
+        return subStories;
+    }
+
+    public void setSubStories(ArrayList<SubStories> subStories) {
+        this.subStories = subStories;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -149,6 +188,7 @@ public class Story implements Parcelable {
         dest.writeString(this.storyName);
         dest.writeString(this.storyType);
         dest.writeString(this.storyImage);
+        dest.writeTypedList(this.subStories);
     }
 
     protected Story(Parcel in) {
@@ -156,9 +196,10 @@ public class Story implements Parcelable {
         this.storyName = in.readString();
         this.storyType = in.readString();
         this.storyImage = in.readString();
+        this.subStories = in.createTypedArrayList(SubStories.CREATOR);
     }
 
-    public static final Parcelable.Creator<Story> CREATOR = new Parcelable.Creator<Story>() {
+    public static final Creator<Story> CREATOR = new Creator<Story>() {
         @Override
         public Story createFromParcel(Parcel source) {
             return new Story(source);

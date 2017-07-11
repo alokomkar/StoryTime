@@ -4,15 +4,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +24,7 @@ import butterknife.ButterKnife;
  * Created by Alok Omkar on 2017-07-09.
  */
 
-public class StoryListFragment extends Fragment {
+public class StoryListFragment extends Fragment implements AdapterClickListener {
 
     private static StoryListFragment instance;
     @BindView(R.id.toolbar)
@@ -40,10 +35,10 @@ public class StoryListFragment extends Fragment {
     AppBarLayout appBar;
     @BindView(R.id.storyContentTextView)
     TextView storyContentTextView;
-    @BindView(R.id.fab)
-    FloatingActionButton fab;
     @BindView(R.id.storyImageView)
     ImageView storyImageView;
+    @BindView(R.id.storyRecylerView)
+    RecyclerView storyRecylerView;
     private Story story;
     private String TAG = StoryListFragment.class.getSimpleName();
 
@@ -77,7 +72,12 @@ public class StoryListFragment extends Fragment {
                 getActivity().onBackPressed();
             }
         });
+        setupRecyclerView();
         return fragmentView;
+    }
+
+    private void setupRecyclerView() {
+        storyRecylerView.setAdapter(new SubStoriesRecyclerAdapter(story.getSubStories(), this));
     }
 
 
@@ -97,4 +97,8 @@ public class StoryListFragment extends Fragment {
     }
 
 
+    @Override
+    public void onItemClick(int position) {
+
+    }
 }
