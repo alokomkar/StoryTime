@@ -8,7 +8,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.TextView;
 
 import com.sortedqueue.storytime.stories.Story;
 
@@ -25,8 +24,6 @@ public class StoryActivity extends AppCompatActivity {
     AppBarLayout appBar;
     @BindView(R.id.fab)
     FloatingActionButton fab;
-    @BindView(R.id.storyContentTextView)
-    TextView storyContentTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
