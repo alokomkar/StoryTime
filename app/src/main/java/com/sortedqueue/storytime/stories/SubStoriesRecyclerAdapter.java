@@ -48,7 +48,7 @@ public class SubStoriesRecyclerAdapter extends RecyclerView.Adapter<SubStoriesRe
 
     }
 
-    private SubStories getItemAtPosition(int position) {
+    public SubStories getItemAtPosition(int position) {
         return subStories.get(position);
     }
 

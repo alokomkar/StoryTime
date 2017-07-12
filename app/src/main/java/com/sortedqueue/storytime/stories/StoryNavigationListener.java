@@ -7,4 +7,5 @@ package com.sortedqueue.storytime.stories;
 public interface StoryNavigationListener {
     void loadStories();
     void loadStoryList(Story story);
+    void loadStoryContent( SubStories subStories );
 }

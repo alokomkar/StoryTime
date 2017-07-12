@@ -6,14 +6,13 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.sortedqueue.storytime.R;
@@ -22,12 +21,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by Alok Omkar on 2017-07-09.
+ * Created by Alok on 12/07/17.
  */
 
-public class StoryListFragment extends Fragment implements AdapterClickListener {
+public class StoryViewFragment extends Fragment {
 
-    private static StoryListFragment instance;
+    private static StoryViewFragment instance;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.toolbar_layout)
@@ -36,27 +35,28 @@ public class StoryListFragment extends Fragment implements AdapterClickListener 
     AppBarLayout appBar;
     @BindView(R.id.storyImageView)
     ImageView storyImageView;
-    @BindView(R.id.storyRecylerView)
-    RecyclerView storyRecylerView;
-    private Story story;
+    @BindView(R.id.storyTextView)
+    TextView storyTextView;
+
+    private SubStories story;
     private String TAG = StoryListFragment.class.getSimpleName();
 
     private StoryNavigationListener storyNavigationListener;
 
-    public static StoryListFragment getInstance() {
+    public static StoryViewFragment getInstance() {
         if (instance == null)
-            instance = new StoryListFragment();
+            instance = new StoryViewFragment();
         return instance;
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View fragmentView = inflater.inflate(R.layout.fragment_story_list, container, false);
+        View fragmentView = inflater.inflate(R.layout.fragment_story_view, container, false);
         ButterKnife.bind(this, fragmentView);
         setHasOptionsMenu(true);
         Glide.with(getContext())
-                .load(story.getStoryImage())
+                .load(story.getStoryImages().get(0))
                 .thumbnail(0.5f)
                 .into(storyImageView);
         toolbar.setTitle(story.getStoryName());
@@ -73,21 +73,14 @@ public class StoryListFragment extends Fragment implements AdapterClickListener 
                 getActivity().onBackPressed();
             }
         });
-        setupRecyclerView();
+        storyTextView.setText(story.getStoryContent());
         return fragmentView;
-    }
-
-    private SubStoriesRecyclerAdapter subStoriesRecyclerAdapter;
-    private void setupRecyclerView() {
-        storyRecylerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        subStoriesRecyclerAdapter = new SubStoriesRecyclerAdapter(story.getSubStories(), this);
-        storyRecylerView.setAdapter(subStoriesRecyclerAdapter);
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if( context instanceof StoryNavigationListener ) {
+        if (context instanceof StoryNavigationListener) {
             storyNavigationListener = (StoryNavigationListener) context;
         }
     }
@@ -103,13 +96,8 @@ public class StoryListFragment extends Fragment implements AdapterClickListener 
         }
     }
 
-    public void setStory(Story story) {
+    public void setSubStory(SubStories story) {
         this.story = story;
     }
 
-
-    @Override
-    public void onItemClick(int position) {
-        storyNavigationListener.loadStoryContent(subStoriesRecyclerAdapter.getItemAtPosition(position));
-    }
 }
