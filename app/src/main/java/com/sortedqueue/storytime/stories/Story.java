@@ -37,11 +37,12 @@ public class Story implements Parcelable {
     public static ArrayList<Story> getStoryList() {
         storyList = new ArrayList<>();
         int id = 1;
-        storyList.add(new Story(
+        Story story = new Story(
                 "story_"+id++,
                 "Animal Stories",
                 "Mythology",
-                "http://cdn2.momjunction.com/wp-content/uploads/2014/06/Animal-Stories-For-Your-Kids.jpg"));
+                "http://cdn2.momjunction.com/wp-content/uploads/2014/06/Animal-Stories-For-Your-Kids.jpg");
+
 
         ArrayList<SubStories> subStories = new ArrayList<>();
 
@@ -66,9 +67,8 @@ public class Story implements Parcelable {
         subStories.add(new SubStories("The Lazy Dreamer", ""));
         subStories.add(new SubStories("The Merchant and The Foolish Barber", ""));
         subStories.add(new SubStories("The Foolish Lion", ""));
-        storyList.get(storyList.size() - 1).setSubStories(subStories);
-
-
+        story.setSubStories(subStories);
+        storyList.add(story);
 
         storyList.add(new Story(
                 "story_"+id++,
