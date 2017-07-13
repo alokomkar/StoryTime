@@ -44,8 +44,15 @@ public class SubStories implements Parcelable {
 
     public ArrayList<String> getStoryImages() {
         if( storyImages == null ) {
+
             storyImages = new ArrayList<>();
+            storyImages.add("http://images.twinkl.co.uk/image/private/t_630/image_repo/98/c1/T-T-14280-The-Lion-And-The-Mouse-Story-Sequencing-Cards_ver_1.jpg");
             storyImages.add("http://s.hswstatic.com/gif/childrens-stories-1.jpg");
+            storyImages.add("http://s.hswstatic.com/gif/childrens-stories-1.jpg");
+            storyImages.add("http://s.hswstatic.com/gif/childrens-stories-1.jpg");
+            storyImages.add("http://s.hswstatic.com/gif/childrens-stories-1.jpg");
+            storyImages.add("http://s.hswstatic.com/gif/childrens-stories-1.jpg");
+
         }
         return storyImages;
     }

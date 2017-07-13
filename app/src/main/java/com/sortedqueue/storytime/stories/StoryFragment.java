@@ -1,18 +1,16 @@
 package com.sortedqueue.storytime.stories;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.sortedqueue.storytime.R;
-import com.sortedqueue.storytime.StoryActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,7 +24,7 @@ public class StoryFragment extends Fragment implements AdapterClickListener {
     @BindView(R.id.storiesRecyclerView)
     RecyclerView storiesRecyclerView;
 
-    private StaggeredGridLayoutManager staggeredGridLayoutManager;
+    private GridLayoutManager staggeredGridLayoutManager;
     private StoryRecyclerAdapter storyRecyclerAdapter;
 
     private StoryNavigationListener storyNavigationListener;
@@ -52,7 +50,7 @@ public class StoryFragment extends Fragment implements AdapterClickListener {
 
     private void setupRecyclerView() {
 
-        staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        staggeredGridLayoutManager = new GridLayoutManager(getContext(), 2);
         storiesRecyclerView.setLayoutManager(staggeredGridLayoutManager);
         storyRecyclerAdapter = new StoryRecyclerAdapter(Story.getStoryList(), this);
         storiesRecyclerView.setAdapter(storyRecyclerAdapter);
